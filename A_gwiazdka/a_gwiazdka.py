@@ -21,6 +21,12 @@ def A_Star(start,koniec,mapa):
     F={}
     G[start]=0
     F[start]=heurastyka(start,koniec)
+    if mapa[koniec[0]][koniec[1]]!=0:
+        print("Punt końcowy jest przeszkodą")
+        return None
+    if start==koniec:
+        print("Punkt początkowy jest też punktem końcowym")
+        return [start]
     zamkniete=set()
     otwarte= {start}
     rodzic={}
@@ -57,8 +63,8 @@ def A_Star(start,koniec,mapa):
     return ValueError("Nie można znaleźć drogi")
 
 def main():
-    start=(0,19 )
-    stop=(19,0)
+    start=(19,0)
+    stop=(0,19)
     mapa=np.loadtxt("grid.txt")
     czas=datetime.datetime.now()
     droga=A_Star(start,stop,mapa)
