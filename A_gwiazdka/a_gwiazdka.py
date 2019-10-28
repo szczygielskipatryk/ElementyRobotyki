@@ -2,8 +2,8 @@ import math
 import numpy as np
 import datetime
 def heurastyka(p1,p2):
-    X=p1[0]+p2[0]
-    Y=p1[1]+p2[1]
+    X=p1[0]-p2[0]
+    Y=p1[1]-p2[1]
     return math.sqrt(X**2+Y**2)
 def dzieci(pozycja,mapa):
     tablica=[]
@@ -57,8 +57,8 @@ def A_Star(start,koniec,mapa):
     return ValueError("Nie można znaleźć drogi")
 
 def main():
-    start=(0,79 )
-    stop=(79,0)
+    start=(0,19 )
+    stop=(19,0)
     mapa=np.loadtxt("grid.txt")
     czas=datetime.datetime.now()
     droga=A_Star(start,stop,mapa)
@@ -68,7 +68,7 @@ def main():
         mapa2[x[0]][x[1]]=2
     mapa2[start[0]][start[1]]=1
     mapa2[stop[0]][stop[1]]=3
-    print(np.size(droga)/2-1)
+    print(mapa2)
     print(czask)
 
 if __name__=="__main__":
