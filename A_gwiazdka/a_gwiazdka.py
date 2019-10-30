@@ -39,7 +39,7 @@ def a_gwiazdka(start, koniec, mapa):
     g[start] = 0
     f[start] = heurastyka(start, koniec)
     if mapa[koniec[0]][koniec[1]] != 0:
-        print("Punt końcowy jest przeszkodą")
+        print("Punkt końcowy jest przeszkodą")
         return None
     if start == koniec:
         print("Punkt początkowy jest też punktem końcowym")
