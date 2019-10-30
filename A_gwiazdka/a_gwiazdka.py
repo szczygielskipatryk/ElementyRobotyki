@@ -5,8 +5,7 @@ import datetime
 __author__ = "Patryk Szczygielski"
 __version__ = "alpha 2.2"
 __email__ = "patryk8199@gmail.com"
-__desc__ = "Algorytm a-gwiazdka stworzony na podstawie wykładu z Elementów Robotyki Inteligentnej, pseudokodu ze " \
-           "strony https://pl.wikipedia.org/wiki/Algorytm_A* oraz filmu na yt: " \
+__desc__ = "Algorytm a-gwiazdka stworzony na podstawie wykładu z Elementów Robotyki Inteligentnej,oraz filmu na yt: " \
            "https://www.youtube.com/watch?v=eSOJ3ARN5FM dla lepszego zrozumienia działania algorytmu "
 
 
