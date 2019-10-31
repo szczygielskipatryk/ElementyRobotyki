@@ -1,9 +1,10 @@
 import math
 import numpy as np
 import datetime
+from PIL import Image
 
 __author__ = "Patryk Szczygielski"
-__version__ = "alpha 2.2"
+__version__ = "alpha 2.21"
 __email__ = "patryk8199@gmail.com"
 __desc__ = "Algorytm a-gwiazdka stworzony na podstawie wykładu z Elementów Robotyki Inteligentnej,oraz filmu na yt: " \
            "https://www.youtube.com/watch?v=eSOJ3ARN5FM dla lepszego zrozumienia działania algorytmu "
@@ -80,18 +81,25 @@ def a_gwiazdka(start, koniec, mapa):
 
 
 def main():
-    start = (19, 0)
-    stop = (0, 19)
+    start = (0, 0)
+    stop = (19, 19)
     mapa = np.loadtxt("grid.txt")
     try:
         czas = datetime.datetime.now()
         droga = a_gwiazdka(start, stop, mapa)
         czask = datetime.datetime.now() - czas
         mapa2 = mapa
+        mapa3 = np.zeros((mapa.shape[0], mapa.shape[1], 3), dtype=np.uint8)
         for x in droga:
             mapa2[x[0]][x[1]] = 2
+            mapa3[x[0]][x[1]] = [0, 0, 225]
         mapa2[start[0]][start[1]] = 1
+        mapa3[start[0]][start[1]] = [0, 225, 0]
         mapa2[stop[0]][stop[1]] = 3
+        mapa3[stop[0]][stop[1]] = [225, 0, 0]
+        img = Image.fromarray(mapa3, 'RGB')
+        img = img.resize((512, 512), resample=0)
+        img.show()
         print(mapa2)
         print(czask)
     except BrakDrogi:
