@@ -44,10 +44,13 @@ def a_gwiazdka(start, koniec, mapa):
     if mapa[koniec[0]][koniec[1]] != 0:
         print("Punkt końcowy jest przeszkodą")
         return None
+    if mapa[start[0]][start[1]]!=0:
+        print("Punkt startowy jest przeszkodą")
+        return None
     if start == koniec:
         print("Punkt początkowy jest też punktem końcowym")
-        return [start]
-    zamkniete = set()
+        return {start}
+    zamkniete = []
     otwarte = {start}
     rodzic = {}
     while otwarte:
@@ -65,24 +68,25 @@ def a_gwiazdka(start, koniec, mapa):
                 aktualny = rodzic[aktualny]
                 droga.add(aktualny)
             return droga
-
+        # przerobiony punkt trafia do listy zamknietej
         otwarte.remove(aktualny)
-        zamkniete.add(aktualny)
-
+        zamkniete.append(aktualny)
+        # sprawdzanie sąsiadów dla punktu aktualny
         for sasiad in dzieci(aktualny, mapa):
             if sasiad in zamkniete:
                 continue
             if sasiad not in otwarte:
                 otwarte.add(sasiad)
-            elif g[aktualny]+1 >= g[sasiad]:
+            elif g[aktualny] + 1 >= g[sasiad]:
                 continue
             rodzic[sasiad] = aktualny
-            g[sasiad] = g[aktualny]+1
+            g[sasiad] = g[aktualny] + 1
             h = heurastyka(sasiad, koniec)
             f[sasiad] = g[sasiad] + h
     raise BrakDrogi
 
 
+# rysowanie mapy: start=zielony, meta=czerwony, droga:cyjan, przeszkody=czarny
 def rysuj_mape(mapka, start, stop, trasa):
     mapa = np.zeros((mapka.shape[0], mapka.shape[1], 3), dtype=np.uint8)
     for x in range(mapka.shape[0]):
