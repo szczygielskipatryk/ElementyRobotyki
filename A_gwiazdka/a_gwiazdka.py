@@ -72,13 +72,12 @@ def a_gwiazdka(start, koniec, mapa):
         for sasiad in dzieci(aktualny, mapa):
             if sasiad in zamkniete:
                 continue
-            dziecko_g = g[aktualny] + 1
             if sasiad not in otwarte:
                 otwarte.add(sasiad)
-            elif dziecko_g >= g[sasiad]:
+            elif g[aktualny]+1 >= g[sasiad]:
                 continue
             rodzic[sasiad] = aktualny
-            g[sasiad] = dziecko_g
+            g[sasiad] = g[aktualny]+1
             h = heurastyka(sasiad, koniec)
             f[sasiad] = g[sasiad] + h
     raise BrakDrogi
@@ -102,8 +101,8 @@ def rysuj_mape(mapka, start, stop, trasa):
 
 
 def main():
-    start = (19, 0)
-    stop = (0, 19)
+    start = (0, 0)
+    stop = (13, 5)
     mapa = np.loadtxt("grid.txt")
     try:
         czas = datetime.datetime.now()
