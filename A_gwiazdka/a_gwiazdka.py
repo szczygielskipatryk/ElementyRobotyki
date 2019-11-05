@@ -44,7 +44,7 @@ def a_gwiazdka(start, koniec, mapa):
     if mapa[koniec[0]][koniec[1]] != 0:
         print("Punkt końcowy jest przeszkodą")
         return None
-    if mapa[start[0]][start[1]]!=0:
+    if mapa[start[0]][start[1]] != 0:
         print("Punkt startowy jest przeszkodą")
         return None
     if start == koniec:
@@ -87,17 +87,19 @@ def a_gwiazdka(start, koniec, mapa):
 
 
 # rysowanie mapy: start=zielony, meta=czerwony, droga:cyjan, przeszkody=czarny
-def rysuj_mape(mapka, start, stop, trasa):
+def rysuj_mape(mapka):
     mapa = np.zeros((mapka.shape[0], mapka.shape[1], 3), dtype=np.uint8)
     for x in range(mapka.shape[0]):
         for y in range(mapka.shape[1]):
             mapa[x][y] = [255, 255, 255]
             if mapka[x][y] == 5:
                 mapa[x][y] = [0, 0, 0]
-    for x in trasa:
-        mapa[x[0]][x[1]] = [0, 225, 225]
-    mapa[start[0]][start[1]] = [150, 225, 0]
-    mapa[stop[0]][stop[1]] = [225, 0, 0]
+            if mapka[x][y] == 1:
+                mapa[x][y] = [0, 255, 255]
+            if mapka[x][y] == 2:
+                mapa[x][y] = [150, 255, 0]
+            if mapka[x][y] == 3:
+                mapa[x][y] = [255, 0, 0]
     img = Image.fromarray(mapa, 'RGB')
     img = img.resize((512, 512), resample=0)
     img = ImageOps.expand(img, 10, 'black')
@@ -105,21 +107,20 @@ def rysuj_mape(mapka, start, stop, trasa):
 
 
 def main():
-    start = (0, 0)
-    stop = (13, 5)
+    start = (19, 0)
+    stop = (0, 19)
     mapa = np.loadtxt("grid.txt")
     try:
         czas = datetime.datetime.now()
         droga = a_gwiazdka(start, stop, mapa)
         czask = datetime.datetime.now() - czas
-        mapa2 = mapa
         for x in droga:
-            mapa2[x[0]][x[1]] = 1
-        mapa2[start[0]][start[1]] = 2
-        mapa2[stop[0]][stop[1]] = 3
-        print(mapa2)
+            mapa[x[0]][x[1]] = 1
+        mapa[start[0]][start[1]] = 2
+        mapa[stop[0]][stop[1]] = 3
+        print(mapa)
         print(czask)
-        rysuj_mape(mapa, start, stop, droga)
+        rysuj_mape(mapa)
     except BrakDrogi:
         print("Nie znaleziono drogi")
 
