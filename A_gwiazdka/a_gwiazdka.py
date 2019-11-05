@@ -30,7 +30,7 @@ def dzieci(pozycja, mapa):
     return tablica
 
 
-# wyjątek w przypadku braku droga
+# wyjątek w przypadku braku drogi
 class BrakDrogi(Exception):
     pass
 
