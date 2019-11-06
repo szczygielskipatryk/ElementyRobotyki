@@ -22,10 +22,11 @@ def dzieci(pozycja, mapa):
     for x in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
         dx = pozycja[0] + x[0]
         dy = pozycja[1] + x[1]
-        if dx >= 0 or dx <= mapa.shape[0] - 1 or dy >= 0 or dy <= mapa.shape[1] - 1 and mapa[dx][dy]==0:
-            tablica.append((dx, dy))
-        else:
+        if dx < 0 or dx > mapa.shape[0] - 1 or dy < 0 or dy > mapa.shape[1] - 1:
             continue
+        if mapa[dx][dy]==5:
+            continue
+        tablica.append((dx,dy))
     return tablica
 
 
@@ -40,7 +41,7 @@ def a_gwiazdka(start, koniec, mapa):
     pass
     g[start] = 0
     f[start] = heurastyka(start, koniec)
-    if mapa[koniec[0]][koniec[1]] ==5:
+    if mapa[koniec[0]][koniec[1]] == 5:
         print("Punkt końcowy jest przeszkodą")
         return None
     if mapa[start[0]][start[1]] == 5:
